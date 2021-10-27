@@ -7,6 +7,8 @@
 
 AgoraCloud is an open source and self hosted cloud development platform that runs in Kubernetes.
 
+This repository contains an alternative AgoraCloud UI that is tailored towards the education sector.
+
 ## Requirements
 
 node version > 10
