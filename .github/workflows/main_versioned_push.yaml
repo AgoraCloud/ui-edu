@@ -1,0 +1,36 @@
+name: main_versioned_push
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*.*.*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+      - name: Extract Branch Tag
+        shell: bash
+        run: echo "##[set-output name=branch_tag;]${GITHUB_REF#refs/*/}"
+        id: extract_branch_tag
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Build and Push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: agoracloud/ui-edu:latest,agoracloud/ui-edu:${{ steps.extract_branch_tag.outputs.branch_tag }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
