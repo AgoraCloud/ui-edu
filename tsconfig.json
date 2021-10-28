@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "declaration": false,
+    "removeComments": true,
+    "strictPropertyInitialization": false,
+    "jsx": "react",
+    "experimentalDecorators" : true,
+    "useDefineForClassFields": true,
+    "noImplicitAny" : false,
+    "outDir": "build",
+    "rootDir": "./src/",
+    "baseUrl": "./src/",
+    "paths": {
+      "app/*": ["./app/*"],
+      "@styles/*" : ["./app/styles/*"]
+    }
+  },
+  "include": ["./src"],
+  "exclude": ["./src/app/OLD"],
+
+  "files": ["./types/static.d.ts"]
+}
