@@ -5,7 +5,7 @@ import {
 } from 'mobx-react-router';
 import { RootStore } from 'app/stores';
 import { makeObservable } from 'mobx';
-console.log("yo")
+
 export class RouterStore extends BaseRouterStore {
   constructor(public rootStore: RootStore, history?: History) {
     super();
