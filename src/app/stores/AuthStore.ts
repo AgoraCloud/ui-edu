@@ -1,14 +1,3 @@
-// import { RootStore } from "app/stores";
-// import { makeObservable, observable } from "mobx";
-
-// export class AuthStore{
-//     @observable
-//     state: 'unauthed'|'loggedin'|'error' = 'unauthed'
-//     constructor(public rootStore: RootStore){
-//         makeObservable(this)
-//     }
-// }
-
 import { RootStore } from 'app/stores/RootStore';
 import { makeObservable, observable } from 'mobx';
 import {
@@ -45,7 +34,7 @@ export class AuthStore {
     await this.signinForm.call();
     if (this.signinForm.submit.state == 'loaded') {
         this.state = 'loggedin';
-        this.rootStore.routerStore.push('/home');
+        this.rootStore.routerStore.push('/');
     }
   };
 }
