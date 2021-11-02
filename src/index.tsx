@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react';
 import { App } from 'app';
 import { rootStore, history } from 'app/stores';
 import { ThemeProvider } from '@material-ui/core';
-import { theme } from 'app/styles';
+import { theme } from 'app/styles/theme';
 import { configure } from 'mobx';
 
 configure({
