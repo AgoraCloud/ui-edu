@@ -2,15 +2,23 @@ name: all_non_versioned_push
 on:
   push:
     branches:
-      - "**"
+      - '**'
     tags-ignore:
-      - "v*.*.*"
+      - 'v*.*.*'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v2
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
       - name: Extract Branch Name
         shell: bash
         run: echo "##[set-output name=branch_name;]${GITHUB_REF#refs/heads/}"
