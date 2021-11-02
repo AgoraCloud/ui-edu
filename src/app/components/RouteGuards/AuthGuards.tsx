@@ -6,7 +6,7 @@ import { useStores } from 'app/stores';
 export const AuthGuard = observer((props) => {
   const { authstore } = useStores();
   // console.log(authstore.state)
-  // if (authstore.state == 'unauthed') return <Redirect to="/login" />;
+  if (authstore.state == 'unauthed') return <Redirect to="/login" />;
   switch (authstore.state) {
     case 'loggedin':
       return props.children;

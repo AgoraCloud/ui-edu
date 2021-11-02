@@ -7,58 +7,75 @@ import { exit } from 'process'
 
 const SRC_PATH = path.resolve(__dirname, './src/')
 
-const proxyTarget = process.env.PROXY_TARGET
-if (!proxyTarget) {
-  console.error("NO PROXY TARGET DEFINED")
-  console.warn("please set an ENV variable PROXY_TARGET=https://agoracloud.YOURDOMAIN.com")
-  exit()
-}
+// console.log(process.env)
+// console.log(process.env.npm_lifecycle_event)
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    reactRefresh(),
-    // typescript({
-    //   tsconfig: './tsconfig.json'
-    // })
-  ],
-  root: SRC_PATH,
-  resolve: {
-    alias: {
-      'app': path.resolve(__dirname, './src/app'),
-      '@styles': path.resolve(__dirname, './src/app/styles')
-    },
-    // dedupe: [
-    //   "mobx",
-    //   "mobx-react"
-    // ]
-  },
-  build: {
-    outDir: '../build',
-    emptyOutDir: true,
-    chunkSizeWarningLimit: 1000
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: proxyTarget,
-        changeOrigin: true,
-        cookieDomainRewrite: ""
+export default defineConfig(({ command }) => {
+  const proxyTarget = process.env.PROXY_TARGET
+  console.log("COMMAND", command)
+  if (!proxyTarget && command !== 'build') {
+    console.error("NO PROXY TARGET DEFINED")
+    console.warn("please set an ENV variable PROXY_TARGET=https://agoracloud.YOURDOMAIN.com")
+    exit()
+  }
+
+  return {
+    plugins: [
+      reactRefresh(),
+      // typescript({
+      //   tsconfig: './tsconfig.json'
+      // })
+    ],
+    root: SRC_PATH,
+    resolve: {
+      alias: {
+        'app': path.resolve(__dirname, './src/app'),
+        '@styles': path.resolve(__dirname, './src/app/styles'),
+        "@nestjs/swagger": path.resolve(__dirname, './src/polyfill'),
+        "swagger-ui-express": path.resolve(__dirname, './src/polyfill'),
+        "fastify-swagger": path.resolve(__dirname, './src/polyfill'),
+        "cache-manage": path.resolve(__dirname, './src/polyfill'),
+        "class-transformer/storage": "class-transformer"
       },
+      // dedupe: [
+      //   "mobx",
+      //   "mobx-react"
+      // ]
     },
-    fs: {
-      allow: ['/home/marc/Desktop/projects/mars-man/models', '..']
+    build: {
+      outDir: '../build',
+      emptyOutDir: true,
+      chunkSizeWarningLimit: 1000,
+      minify: false
+    },
+    server: {
+      proxy: {
+        '/api': {
+          target: proxyTarget,
+          changeOrigin: true,
+          cookieDomainRewrite: ""
+        },
+      },
+      fs: {
+        allow: ['/home/marc/Desktop/projects/mars-man/models', '..']
+      }
+    },
+    /**
+     * 
+    optimizeDeps: {
+      exclude: [
+        "class-transformer/storage",
+        // "mobx",
+        // this is to handle swagger commonjs
+        // "@nestjs/swagger",
+        "swagger-ui-express",
+        "fastify-swagger",
+        "cache-manager"
+      ]
     }
-  },
-  optimizeDeps: {
-    exclude: [
-      "class-transformer/storage",
-      // "mobx",
-      // this is to handle swagger commonjs
-      "@nestjs/swagger",
-      "swagger-ui-express",
-      "fastify-swagger",
-      "cache-manager"
-    ]
+     */
+
   }
 })
+

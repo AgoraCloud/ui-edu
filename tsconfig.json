@@ -30,7 +30,5 @@
     }
   },
   "include": ["./src"],
-  "exclude": ["./src/app/OLD"],
-
   "files": ["./types/static.d.ts"]
 }
