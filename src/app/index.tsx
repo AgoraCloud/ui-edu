@@ -6,6 +6,7 @@
  
  import {
    AuthedRoute,
+   AdminAuthedRoute,
    AuthGuard,
    UnauthedRoute,
   } from 'app/components/RouteGuards';
@@ -16,6 +17,11 @@
  import {
    Login,
  } from 'app/res/Auth/pages';
+
+ import {
+  WorkstationHome,
+  NewWorkstation
+} from 'app/res/Workstations';
  
  export const App = ({ history }: any) => {
    return (
@@ -25,7 +31,8 @@
       </Switch>
        <AuthGuard>
          <Switch>
-           <AuthedRoute path="/" component={() => <h1>Home</h1>} />
+           <AdminAuthedRoute path="/ws/new" component={NewWorkstation} />
+           <AuthedRoute path="/" component={WorkstationHome} />
           </Switch> 
        </AuthGuard>
      </Router>

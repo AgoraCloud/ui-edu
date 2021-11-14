@@ -1,5 +1,6 @@
 import { APIRepo, Model } from '@mars-man/models';
 import { types } from 'app/constants';
+import { UserPermissions } from 'app/res/Auth';
 
 export interface user_i {
   id: string;
@@ -20,12 +21,15 @@ export class BaseUserModel<T extends user_i> extends Model<T> {
 }
 
 export class UserModel extends BaseUserModel<user_i> {
+  permissions: UserPermissions;
   constructor() {
     super();
 
     this.repos = {
       main: new APIRepo({ path: this.api, events: types.USERLOAD }),
     };
+
+    this.permissions = new UserPermissions(this);
   }
 
   get api() {

@@ -26,14 +26,13 @@ export class AuthStore {
   loadUser = async () => {
     this.state = 'loading';
     await this.user.load();
-    // await this.rootStore.workspacesStore.workspaces.load();
+    await this.user.permissions.load()
     this.state = this.user.state == 'loaded' ? 'loggedin' : 'unauthed';
   };
 
   login = async () => {
     await this.signinForm.call();
     if (this.signinForm.submit.state == 'loaded') {
-        this.state = 'loggedin';
         this.rootStore.routerStore.push('/');
     }
   };

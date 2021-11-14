@@ -1,6 +1,6 @@
 import { SignInDto } from '@agoracloud/common';
 import { APIRepo, FormModel } from '@mars-man/models';
-import { eventTypes } from 'app/constants';
+import { types } from 'app/constants';
 
 interface signin_i {
   email: string;
@@ -17,10 +17,7 @@ export class SignInFormModel extends FormModel<signin_i> {
       submit: new APIRepo({
         path: '/api/auth/login',
         method: 'POST',
-        events: {
-          onLoad: eventTypes.SIGNIN,
-          onError: eventTypes.SIGNIN_ERR,
-        },
+        events: types.SIGNIN,
       }),
     });
   }

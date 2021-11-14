@@ -6,6 +6,7 @@ import { rootStore, history } from 'app/stores';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from 'app/styles/theme';
 import { configure } from 'mobx';
+import { SnackbarManager } from 'app/components/snackbar-manager';
 
 configure({
   isolateGlobalState: true,
@@ -17,7 +18,7 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Provider {...rootStore.stores}>
       <App history={history} />
-      {/* <SnackbarManager /> */}
+      <SnackbarManager />
     </Provider>
   </ThemeProvider>,
   document.getElementById('root'),

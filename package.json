@@ -19,7 +19,7 @@
     "@agoracloud/common": "^1.3.0",
     "@mars-man/components": "^1.0.1",
     "@mars-man/events": "^1.0.1",
-    "@mars-man/models": "^1.3.8",
+    "@mars-man/models": "^1.3.13",
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
     "class-transformer": "^0.4.0",
