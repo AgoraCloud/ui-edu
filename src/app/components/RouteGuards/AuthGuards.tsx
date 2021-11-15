@@ -3,58 +3,70 @@ import { observer } from 'mobx-react';
 import { Redirect, Route } from 'react-router';
 import { useStores } from 'app/stores';
 import { Role } from 'app/constants';
-
-export const AuthGuard = observer((props) => {
-  const { authstore } = useStores();
-  // console.log(authstore.state)
-  if (authstore.state == 'unauthed') return <Redirect to="/login" />;
-  switch (authstore.state) {
-    case 'loggedin':
-      return props.children;
-    default:
-      return 'loading...';
-  }
-});
-
-export const AuthedRoute = observer((props) => {
-  const { authstore } = useStores();
-  // console.log(authstore.state)
-  if (authstore.state == 'unauthed') return <Redirect to="/login" />;
-  switch (authstore.state) {
-    case 'loggedin':
-      return <Route {...props} />;
-    default:
-      return null;
-  }
-});
+import { LoadingPage } from 'app/components';
 
 export const AdminAuthedRoute = observer((props) => {
-  const { authstore } = useStores();
-  const { component } = props;
-  // console.log(authstore.state)
-  if (authstore.state == 'unauthed') return <Redirect to="/login" />;
-  switch (authstore.state) {
-    case 'loggedin':
-      if(authstore.user.permissions.roles.has(Role.SuperAdmin)){
-        return <Route {...props} />;
-      }    
-    default:
-      return <Redirect to="/" />;
-  }
+  return (
+    <Route
+      {...props}
+      component={observer(() => {
+        const { authstore } = useStores();
+        // console.log(authstore.state)
+        if (authstore.state == 'unauthed') return <Redirect to="/login" />;
+        switch (authstore.state) {
+          case 'loggedin':
+            if (authstore.user.permissions.roles.has(Role.SuperAdmin)) {
+              return <Route {...props} />;
+            }
+          default:
+            return <Redirect to="/" />;
+        }
+      })}
+    />)
 });
 
-export const UnauthedRoute = observer((props) => {
-  // const store = props[AUTH_STORE] as AuthStore;
-  const { authstore } = useStores();
+export const UnauthedRoute = (props) => {
+  return (
+    <Route
+      {...props}
+      component={observer(() => {
+        const { authstore } = useStores();
+        switch (authstore.state) {
+          case 'loggedin': {
+            return <Redirect to="/" />;
+          }
+          case 'loading': {
+            return <LoadingPage />;
+          }
+          case 'unauthed': {
+            return <Route component={props.component} />;
+          }
+        }
+        return null;
+      })}
+    />
+  );
+};
 
-  // const userStore = props[USER_STORE] as UserStore
-  // if(userStore.state != 'loaded') return null
-  switch (authstore.state) {
-    case 'loggedin':
-      return <Redirect to="/" />;
-    case 'unauthed':
-      return <Route {...props} />;
-    default:
-      return null;
-  }
-});
+export const AuthedRoute = (props) => {
+  return (
+    <Route
+      {...props}
+      component={observer(() => {
+        const { authstore } = useStores();
+        switch (authstore.state) {
+          case 'loggedin': {
+            return <Route component={props.component} />;
+          }
+          case 'loading': {
+            return <LoadingPage />;
+          }
+          case 'unauthed': {
+            return <Redirect to="/login" />;
+          }
+        }
+        return null;
+      })}
+    />
+  );
+};

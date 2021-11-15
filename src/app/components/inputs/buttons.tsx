@@ -9,9 +9,8 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
-import { ROUTER_STORE } from 'app/constants';
-import { RouterStore, useStores } from 'app/stores';
+import { observer } from 'mobx-react';
+import { useStores } from 'app/stores';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { FormModel } from '@mars-man/models';
 
@@ -121,3 +120,51 @@ interface CancelCreateButtonsProps {
       );
     },
   );
+
+
+
+export const MoreMenu = (props: {
+  options: { name: string; onClick: () => any }[];
+}) => {
+  const { options } = props;
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const onClick = (option) => {
+    return () => {
+      option.onClick();
+      handleClose();
+    };
+  };
+  return (
+    <>
+      <IconButton
+        aria-label="more"
+        aria-controls="long-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+      >
+        {options.map((option) => (
+          <MenuItem key={option.name} onClick={onClick(option)}>
+            {option.name}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+};

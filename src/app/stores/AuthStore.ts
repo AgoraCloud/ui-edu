@@ -26,6 +26,7 @@ export class AuthStore {
   loadUser = async () => {
     this.state = 'loading';
     await this.user.load();
+    console.log(this.user)
     await this.user.permissions.load()
     this.state = this.user.state == 'loaded' ? 'loggedin' : 'unauthed';
   };
