@@ -5,7 +5,7 @@ import { useStores } from 'app/stores';
 
 export const RenderIf = (props: {
   if: boolean;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }) => {
   if (!props.if) return null;
   return props.children;
@@ -14,7 +14,7 @@ export const RenderIf = (props: {
 export const RenderIfHas = (props: {
   array: string[];
   permissions: PermissionsBase;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }) => {
   const { array, permissions } = props;
   let allow = false;
@@ -24,12 +24,12 @@ export const RenderIfHas = (props: {
       break;
     }
   }
-  if (allow) return props.children;
+  if (allow) return <>{props.children}</>;
   return null;
 };
 
 export const RenderIfRole = observer(
-  (props: { roles: string[]; children: React.ReactElement; }) => {
+  (props: { roles: string[]; children: React.ReactNode; }) => {
     const { authstore } = useStores();
     const { roles } = props;
     let perms: PermissionsBase = authstore.user.permissions.roles;

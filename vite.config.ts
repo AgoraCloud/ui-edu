@@ -38,10 +38,11 @@ export default defineConfig(({ command }) => {
         "cache-manage": path.resolve(__dirname, './src/polyfill'),
         "class-transformer/storage": "class-transformer"
       },
-      // dedupe: [
-      //   "mobx",
-      //   "mobx-react"
-      // ]
+      dedupe: [
+        "class-transformer",
+        "reflect-metadata",
+        "class-validator"
+      ]
     },
     build: {
       outDir: '../build',

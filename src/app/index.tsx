@@ -1,41 +1,41 @@
 /**
  * THIRD PARTY IMPORTS
  */
- import * as React from 'react';
- import { Router, Switch } from 'react-router';
- 
- import {
-   AuthedRoute,
-   AdminAuthedRoute,
-   AuthGuard,
-   UnauthedRoute,
-  } from 'app/components/RouteGuards';
- 
- /**
-  * AUTH IMPORTS
-  */
- import {
-   Login,
- } from 'app/res/Auth/pages';
+import * as React from 'react';
+import { Router, Switch } from 'react-router';
 
- import {
+import {
+  AuthedRoute,
+  AdminAuthedRoute,
+  UnauthedRoute,
+} from 'app/components/RouteGuards';
+
+/**
+ * AUTH IMPORTS
+ */
+import {
+  Login,
+} from 'app/res/Auth/pages';
+
+import {
   WorkstationHome,
-  NewWorkstation
+  NewWorkstation,
+  EditWorkstation
 } from 'app/res/Workstations';
- 
- export const App = ({ history }: any) => {
-   return (
-     <Router history={history}>
+import { ConfirmDeleteDialog } from 'app/components/dialogs';
+
+export const App = ({ history }: any) => {
+  return (
+    <Router history={history}>
       <Switch>
         <UnauthedRoute path="/login" component={Login} />
+        <AdminAuthedRoute path="/ws/:wid/edit" component={EditWorkstation} />
+        <AdminAuthedRoute path="/ws/new" component={NewWorkstation} />
+        <AdminAuthedRoute path="/ws" component={NewWorkstation} />
+        <AuthedRoute path="/" component={WorkstationHome} />
       </Switch>
-       <AuthGuard>
-         <Switch>
-           <AdminAuthedRoute path="/ws/new" component={NewWorkstation} />
-           <AuthedRoute path="/" component={WorkstationHome} />
-          </Switch> 
-       </AuthGuard>
-     </Router>
-   );
- };
- 
+      <ConfirmDeleteDialog />
+    </Router>
+  );
+};
+

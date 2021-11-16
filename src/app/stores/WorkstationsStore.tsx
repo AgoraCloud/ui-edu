@@ -16,6 +16,9 @@ export class WorkstationsStore {
 
     events.on(types.USERLOAD.onLoad.type, () => {
       this.workstations.load();
+      console.log("USER LOAD")
     });
+
+    // events.on(types.)
   }
 }

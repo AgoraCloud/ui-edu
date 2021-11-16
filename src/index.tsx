@@ -6,7 +6,7 @@ import { rootStore, history } from 'app/stores';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from 'app/styles/theme';
 import { configure } from 'mobx';
-import { SnackbarManager } from 'app/components/snackbar-manager';
+import { SnackbarManager } from 'app/components';
 
 configure({
   isolateGlobalState: true,
