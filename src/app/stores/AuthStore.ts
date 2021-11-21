@@ -28,6 +28,7 @@ export class AuthStore {
     await this.user.load();
     console.log(this.user)
     await this.user.permissions.load()
+    await this.user.userWorkstation.load()
     this.state = this.user.state == 'loaded' ? 'loggedin' : 'unauthed';
   };
 

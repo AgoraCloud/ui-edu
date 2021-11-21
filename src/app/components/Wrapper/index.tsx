@@ -34,6 +34,19 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
+
+export const ProxyWrapper = (props: {
+  children: React.ReactChild | React.ReactChild[];
+}) => {
+  const classes = useStyles();
+  const { children } = props;
+  return (
+    <div className={classes.root}>
+      <main className={classes.content}>{children}</main>
+    </div>
+  );
+};
+
 interface HomeWrapper_i {
   children: React.ReactChild | React.ReactChild[];
 }

@@ -1,4 +1,4 @@
-import { APIRepo, Model } from '@mars-man/models';
+import { APIRepo, Model, PeriodicRepo } from '@mars-man/models';
 import { types } from 'app/constants';
 import { UserPermissions } from 'app/res/Auth';
 
@@ -22,6 +22,7 @@ export class BaseUserModel<T extends user_i> extends Model<T> {
 
 export class UserModel extends BaseUserModel<user_i> {
   permissions: UserPermissions;
+  userWorkstation: UserWorkstationModel;
   constructor() {
     super();
 
@@ -30,9 +31,62 @@ export class UserModel extends BaseUserModel<user_i> {
     };
 
     this.permissions = new UserPermissions(this);
+    this.userWorkstation = new UserWorkstationModel();
   }
 
   get api() {
     return '/api/user';
+  }
+}
+
+interface userWorkstationData_i {
+  user: {
+    id: string;
+    fullName: string;
+    email: string;
+  };
+  workspace: {
+    id: string;
+  };
+  name: string;
+  id: string;
+  deployment: {
+    id: string;
+    status: string;
+    properties: {
+      proxyUrl: string;
+      scalingMethod: 'ON_DEMAND' | 'ALWAYS_ON';
+    };
+  };
+}
+export class UserWorkstationModel extends Model<userWorkstationData_i> {
+  start: APIRepo;
+  constructor() {
+    super();
+
+    this.repos = {
+      main: PeriodicRepo(new APIRepo({ path: this.api }), 5000),
+    };
+
+    this.start = new APIRepo({
+      path: `${this.data?.workspace?.id}/deployments/${this.data?.deployment?.id}/on`,
+      method: 'PUT',
+    });
+  }
+
+  get deploymentScalingMethod(){
+    return this.data.deployment.properties.scalingMethod;
+  }
+
+  get deploymentStatus() {
+    return this.data.deployment.status;
+  }
+
+  get proxyUrl() {
+    return this.data.deployment.properties.proxyUrl;
+  }
+
+  get api() {
+    return `/api/workstation`;
   }
 }
