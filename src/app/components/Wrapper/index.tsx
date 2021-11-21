@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => {
       boxSizing: 'border-box',
       // flexGrow: 0,
       width: '100%',
-      height: '100%',
+      height: `calc(100vh - 0px)`,
     },
     container: {
       paddingTop: theme.spacing(4),

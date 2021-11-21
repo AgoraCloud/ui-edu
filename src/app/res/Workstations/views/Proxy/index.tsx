@@ -7,7 +7,7 @@ import { DeploymentModel } from 'app/res/Workstations/models'
 
 export const DeploymentProxy = observer(
     (props: { deployment: DeploymentModel }) => {
-    const [state, setState] = React.useState('unloaded');
+    const [state, setState] = React.useState('loading');
     const { deployment } = props;
     // console.log("THIS IS THE DEPLOYMENT PROXY URL", deployment.proxyUrl)
     if (!deployment){
