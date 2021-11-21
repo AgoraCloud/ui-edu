@@ -23,15 +23,21 @@ export const DeploymentProxy = observer(
           )
       }
     }
+    if (deployment.status === 'RUNNING'){
+        return (
+            <ProxyWrapper>
+            <iframe
+              id={style.iframe}
+              src={`https://${deployment.proxyUrl}`}
+              onLoad={() => {
+                setState('loaded');
+              }}
+            />
+          </ProxyWrapper>
+        );
+    }
+
     return (
-        <ProxyWrapper>
-        <iframe
-          id={style.iframe}
-          src={`https://${deployment.proxyUrl}`}
-          onLoad={() => {
-            setState('loaded');
-          }}
-        />
-      </ProxyWrapper>
-    );
+        <div>The state of the deployment is {deployment.status}. Please contact IT Admin.</div>
+    )
   });
