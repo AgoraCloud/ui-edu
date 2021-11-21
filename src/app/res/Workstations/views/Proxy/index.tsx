@@ -17,7 +17,10 @@ export const DeploymentProxy = observer(
     };
     if(deployment.scalingMethod === 'ON_DEMAND'){
       if (deployment.status === 'STOPPED'){
+        React.useEffect(()=>{
+          console.log("USE EFFECT FUNCTION IS RUNNING")
           deployment.start.call()
+        }, [])
           return (
             <div>Please wait your deployment is starting...</div>
           )
