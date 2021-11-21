@@ -5,13 +5,11 @@ import { RenderIfRole } from 'app/components/RouteGuards';
 import { Role } from 'app/constants';
 import { WorkstationsTable } from 'app/res/Workstations';
 import { DeploymentProxy } from 'app/res/Workstations/views/Proxy'
+import { useStores } from 'app/stores';
 
 export const WorkstationHome = observer(() => {
-    //const { workspacesstore, uistore } = useStores();
-    //const workspaces = workspacesstore.workspaces;
-    //const selectedWorkspace = workspacesstore.selectedWorkspace;
-    //if (!selectedWorkspace) return null;
-    // console.log("SELECTED WORKSPACE", selectedWorkspace)
+    const { authstore } = useStores();
+    const deployment = authstore.deployment
     
     return (
         <div>
@@ -20,7 +18,7 @@ export const WorkstationHome = observer(() => {
           <AddFAB link={`/ws/new`} />
         </RenderIfRole>
         <RenderIfRole roles={[Role.User]}>
-          <DeploymentProxy />
+          <DeploymentProxy deployment={deployment} />
         </RenderIfRole>
         
         </div>
