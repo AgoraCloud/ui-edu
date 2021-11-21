@@ -7,9 +7,9 @@ import { DeploymentModel } from 'app/res/Workstations/models'
 
 export const DeploymentProxy = observer(
     (props: { deployment: DeploymentModel }) => {
-    const [state, setState] = React.useState('loading');
+    const [state, setState] = React.useState('unloaded');
     const { deployment } = props;
-    console.log("THIS IS THE DEPLOYMENT PROXY URL", deployment.proxyUrl)
+    // console.log("THIS IS THE DEPLOYMENT PROXY URL", deployment.proxyUrl)
     if (!deployment){
         return (
             <div>Could not find any deployment. Please contact IT Admin.</div>
@@ -20,6 +20,7 @@ export const DeploymentProxy = observer(
         React.useEffect(()=>{
           console.log("USE EFFECT FUNCTION IS RUNNING")
           deployment.start.call()
+          setState('loading')
         }, [])
           return (
             <div>Please wait your deployment is starting...</div>
