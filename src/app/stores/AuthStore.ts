@@ -31,7 +31,7 @@ export class AuthStore {
     this.state = 'loading';
     await this.user.load();
     console.log(this.user)
-    await this.user.permissions.load()
+    await this.user.permissions.load();
     await this.userWorkstation.load();
     this.deployment = new DeploymentModel(this.userWorkstation);
     await this.deployment.load();

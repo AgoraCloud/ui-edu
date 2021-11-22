@@ -148,11 +148,11 @@ export class UserWorkstationModel extends Model<userWorkstationData_i> {
   }
 
   get workspaceId() {
-    return this.data.workspace.id;
+    return this.data?.workspace?.id;
   }
 
   get deploymentId(){
-    return this.data.deployment.id;
+    return this.data?.deployment?.id;
   }
 
   get api() {
@@ -223,7 +223,7 @@ export class DeploymentModel extends Model<deploymentData_i> {
   }
 
   get api() {
-    return `/api/workspaces/${this.userWorkstation.workspaceId}/deployments/${this.userWorkstation.deploymentId}`;
+    return `/api/workspaces/${this.userWorkstation?.workspaceId}/deployments/${this.userWorkstation?.deploymentId}`;
   }
 
   get proxyUrl() {
