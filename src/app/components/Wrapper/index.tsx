@@ -35,15 +35,24 @@ const useStyles = makeStyles((theme) => {
 });
 
 
+const proxyStyles = makeStyles (() => {
+  return {
+    root:{
+      margin: '0px',
+      padding: '0px',
+      overflow: 'hidden',
+    }
+  }
+});
+
+
 export const ProxyWrapper = (props: {
   children: React.ReactChild | React.ReactChild[];
 }) => {
-  const classes = useStyles();
+  const classes = proxyStyles();
   const { children } = props;
   return (
-    <div className={classes.root}>
-      <main className={classes.content}>{children}</main>
-    </div>
+    <main className={classes.root}>{children}</main>
   );
 };
 
