@@ -31,7 +31,7 @@ export const DeploymentProxy = observer(
             <iframe
               id={style.iframe}
               frameBorder="0"
-              height="100%" 
+              height="calc(100vh)" 
               width="100%"
               src={`https://${deployment.proxyUrl}`}
               onLoad={() => {
