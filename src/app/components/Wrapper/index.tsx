@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => {
       boxSizing: 'border-box',
       // flexGrow: 0,
       width: '100%',
-      height: `calc(100vh - 64px)`,
+      height: `calc(100vh - 72px)`,
     },
     container: {
       paddingTop: theme.spacing(4),
@@ -33,6 +33,28 @@ const useStyles = makeStyles((theme) => {
     },
   };
 });
+
+
+const proxyStyles = makeStyles (() => {
+  return {
+    root:{
+      margin: '0px',
+      padding: '0px',
+      overflow: 'hidden',
+    }
+  }
+});
+
+
+export const ProxyWrapper = (props: {
+  children: React.ReactChild | React.ReactChild[];
+}) => {
+  const classes = proxyStyles();
+  const { children } = props;
+  return (
+    <main className={classes.root}>{children}</main>
+  );
+};
 
 interface HomeWrapper_i {
   children: React.ReactChild | React.ReactChild[];

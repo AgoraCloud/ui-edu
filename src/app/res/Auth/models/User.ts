@@ -1,4 +1,6 @@
-import { APIRepo, Model } from '@mars-man/models';
+import { APIRepo,
+  Model,
+  PeriodicRepo, } from '@mars-man/models';
 import { types } from 'app/constants';
 import { UserPermissions } from 'app/res/Auth';
 
@@ -22,6 +24,7 @@ export class BaseUserModel<T extends user_i> extends Model<T> {
 
 export class UserModel extends BaseUserModel<user_i> {
   permissions: UserPermissions;
+  
   constructor() {
     super();
 
@@ -30,6 +33,7 @@ export class UserModel extends BaseUserModel<user_i> {
     };
 
     this.permissions = new UserPermissions(this);
+    
   }
 
   get api() {
