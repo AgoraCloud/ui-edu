@@ -7,7 +7,7 @@ import { LoadingPage } from 'app/components';
 
 export const AdminAuthedRoute = observer((props) => {
   return (
-    <Route
+    <AuthedRoute
       {...props}
       component={observer(() => {
         const { authstore } = useStores();

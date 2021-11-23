@@ -42,19 +42,20 @@ export const WorkstationsTable = observer(() => {
                 <MoreMenu
                     options={[
                         {
-                            name: 'Delete',
-                            onClick: () => {
-                                // user.onDelete();
-                                uistore.setDeleteTarget(workstation.name, workstation.onDelete);
-                            },
-                        },
-                        {
                             name: 'Edit',
                             onClick: () => {
                                 routerstore.push(`/ws/${workstation.id}/edit`)
                                 // adminstore.editUserDialog.setUserAndOpen(user);
                             },
                         },
+                        {
+                            name: 'Delete',
+                            onClick: () => {
+                                // user.onDelete();
+                                uistore.setDeleteTarget(workstation.name, workstation.onDelete);
+                            },
+                        },
+
                     ]}
                 />
             ),

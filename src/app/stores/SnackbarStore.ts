@@ -41,7 +41,8 @@ export class SnackbarStore {
   initEvents() {
     Object.values(types).forEach((v) => {
       [v.onLoad, v.onError].map((e) => {
-        events.on(e.type, (data) => {
+        events.on(e.type, (eventData, repoData) => {
+          if (e.snackbar === false) return;
           this.push({
             message: e.data.message,
             variant: e.data.variant as any,

@@ -21,4 +21,10 @@ export class WorkstationsStore {
 
     // events.on(types.)
   }
+
+  get selectedWorkstation(){
+    const {wsid} = this.rootStore.routerStore.params
+
+    return this.workstations.getBy('id', wsid)[0] as WorkstationModel|undefined
+  }
 }

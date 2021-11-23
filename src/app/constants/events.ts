@@ -22,10 +22,11 @@ interface eventType_i {
   };
 }
 
-export const types: eventType_i = {
+export const types = {
   USERLOAD: {
     onLoad: {
       type: 'USERLOAD',
+      snackbar: false,
       data: {
         message: 'Successfully Loaded User!',
         variant: 'success',
@@ -33,6 +34,7 @@ export const types: eventType_i = {
     },
     onError: {
       type: 'USERLOAD_ERR',
+      snackbar: false,
       data: {
         message: 'Failed to Load User: ',
         variant: 'error',
@@ -42,6 +44,7 @@ export const types: eventType_i = {
   SIGNIN: {
     onLoad: {
       type: 'SIGNIN',
+      snackbar: true,
       data: {
         message: 'Successfully Logged In!',
         variant: 'success',
@@ -49,6 +52,7 @@ export const types: eventType_i = {
     },
     onError: {
       type: 'SIGNIN_ERR',
+      snackbar: true,
       data: {
         message: 'Failed to Login: ',
         variant: 'error',
@@ -58,6 +62,7 @@ export const types: eventType_i = {
   SIGNOUT: {
     onLoad: {
       type: 'SIGNOUT',
+      snackbar: false,
       data: {
         message: 'Signed out',
         variant: 'success',
@@ -65,6 +70,7 @@ export const types: eventType_i = {
     },
     onError: {
       type: 'SIGNOUT_ERR',
+      snackbar: false,
       data: {
         message: 'Failed to Signout: ',
         variant: 'error',
@@ -74,6 +80,7 @@ export const types: eventType_i = {
   SIGNUP: {
     onLoad: {
       type: 'SIGNUP',
+      snackbar: true,
       data: {
         message: 'Registered! Please check your email to verify your account.',
         variant: 'success',
@@ -81,6 +88,7 @@ export const types: eventType_i = {
     },
     onError: {
       type: 'SIGNUP_ERR',
+      snackbar: true,
       data: {
         message: 'Failed to Signup: ',
         variant: 'error',
@@ -90,16 +98,18 @@ export const types: eventType_i = {
 
   WORKSTATION_CRUD: {
     onLoad: {
-      type: 'WORKSPACE_ERR',
+      type: 'WORKSPACE_CRUD',
+      snackbar: true,
       data: {
-        message: 'Workspace Failure: ',
+        message: 'Workspace Successfully: ',
         variant: 'error',
       },
     },
     onError: {
-      type: 'WORKSPACE_CRUD',
+      type: 'WORKSPACE_ERR',
+      snackbar: true,
       data: {
-        message: 'Workspace Successfully: ',
+        message: 'Workspace Failure: ',
         variant: 'success',
       },
     },

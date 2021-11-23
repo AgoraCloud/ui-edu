@@ -17,7 +17,7 @@ export class RouterStore extends BaseRouterStore {
 
   get params(): any {
     const patterns = [
-      /\/w\/(?<wid>[a-zA-Z0-9]{24})/,
+      /\/ws\/(?<wsid>[a-zA-Z0-9]{24})/,
     ];
     let out = {};
     for (const pattern of patterns) {
